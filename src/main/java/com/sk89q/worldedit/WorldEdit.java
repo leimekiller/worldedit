@@ -390,6 +390,11 @@ public class WorldEdit {
         String[] blockAndExtraData = arg.split("\\|");
         String[] typeAndData = blockAndExtraData[0].split(":", 2);
         String testID = typeAndData[0];
+
+        if ("hand".equalsIgnoreCase(testID)) {
+            return player.getBlockInHand();
+        }
+
         int blockId = -1;
 
         int data = -1;
