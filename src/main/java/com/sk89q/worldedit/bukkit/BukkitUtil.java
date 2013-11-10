@@ -21,6 +21,8 @@ package com.sk89q.worldedit.bukkit;
 
 import java.util.List;
 
+import com.sk89q.worldedit.UnknownItemException;
+import com.sk89q.worldedit.blocks.BaseBlock;
 import org.bukkit.Server;
 import org.bukkit.World;
 import org.bukkit.block.Block;
@@ -41,6 +43,7 @@ import com.sk89q.worldedit.bukkit.entity.BukkitEntity;
 import com.sk89q.worldedit.bukkit.entity.BukkitExpOrb;
 import com.sk89q.worldedit.bukkit.entity.BukkitItem;
 import com.sk89q.worldedit.bukkit.entity.BukkitPainting;
+import org.bukkit.inventory.ItemStack;
 
 public class BukkitUtil {
     private BukkitUtil() {
@@ -152,5 +155,13 @@ public class BukkitUtil {
             default:
                 return new BukkitEntity(toLocation(e.getLocation()), e.getType(), e.getUniqueId());
         }
+    }
+
+    public static BaseBlock toBlock(LocalWorld world, ItemStack itemStack) throws UnknownItemException {
+        final int itemInHand = itemStack.getTypeId();
+        if (!world.isValidBlockType(itemInHand)) {
+            throw new UnknownItemException("The item in your hand is not a block.");
+        }
+        return new BaseBlock(itemInHand, itemStack.getDurability());
     }
 }
