@@ -457,6 +457,15 @@ public abstract class LocalPlayer {
     public abstract int getItemInHand();
 
     /**
+     * Get the Block that the player is holding.
+     *
+     * @return the item id of the item the player is holding
+     */
+    public BaseBlock getBlockInHand() throws UnknownItemException {
+        return new BaseBlock(getItemInHand());
+    }
+
+    /**
      * Get the name of the player.
      *
      * @return String
